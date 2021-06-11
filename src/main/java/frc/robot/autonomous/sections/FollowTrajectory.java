@@ -26,13 +26,13 @@ public class FollowTrajectory extends AutoSection {
         this.trajectory = trajectory;
         this.gyro = Robot.gyro;
         drivetrain = Robot.drivetrain;
-        this.savedPose = drivetrain.getCoordinates();
         controller = new RamseteController(Constants.RAMSETE_B, Constants.RAMSETE_ZETA);
     }
 
     @Override
     public void init() {
         super.init();
+        this.savedPose = drivetrain.getCoordinates();
         drivetrain.setOdometry(new Pose2d(0, 0, new Rotation2d()), Rotation2d.fromDegrees(gyro.getYaw()));
     }
 
@@ -49,6 +49,7 @@ public class FollowTrajectory extends AutoSection {
     @Override
     public void disabled() {
         drivetrain.setSpeeds(new DifferentialDriveWheelSpeeds(0, 0));
+        drivetrain.setOdometry(savedPose.transformBy(new Transform2d(new Translation2d(drivetrain.getCoordinates().getX(), drivetrain.getCoordinates().getY()), new Rotation2d())), Rotation2d.fromDegrees(gyro.getYaw()));
     }
     
 }
