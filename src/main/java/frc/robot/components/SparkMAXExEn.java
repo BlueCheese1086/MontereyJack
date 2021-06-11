@@ -1,0 +1,66 @@
+package frc.robot.components;
+
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.controller.PIDController;
+
+public class SparkMAXExEn extends SparkMAX {
+
+    PIDController pid;
+    double measurement;
+
+    public SparkMAXExEn(int id) {
+        super(id);
+    }
+
+    public SparkMAXExEn(int id, MotorType type) {
+        super(id, type);
+    }
+
+    @Override
+    public void setSpeed(double speed) {
+        this.setCurrent(pid.calculate(this.measurement, speed));
+    }
+
+    @Override
+    public void setPosition(double position) {
+        this.setCurrent(pid.calculate(this.measurement, position));
+    }
+
+    @Override
+    public double getSpeed() {
+        return measurement;
+    }
+
+    @Override
+    public double getPosition() {
+        return measurement;
+    }
+
+    @Override
+    public void resetPosition() {
+        this.measurement = 0;
+    }
+
+    @Override
+    public void initPID(double ff, double kp, double ki, double kd) {
+        pid = new PIDController(kp, ki, kd);
+        if (ff != 0) {
+            System.out.println("ERROR: Feed-forward constant not available for external PID loops");
+        }
+    }
+
+    public void updateMeasurement(double measurement) {
+        this.measurement = measurement;
+    }
+
+    @Override
+    public void setContinuousPID(double min, double max) {
+        pid.enableContinuousInput(min, max);
+    }
+
+    @Override
+    public boolean atTargetPosition(double tolerance) {
+        return pid.getPositionError() < tolerance;
+    }
+}
