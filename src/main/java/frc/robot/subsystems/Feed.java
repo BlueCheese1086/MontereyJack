@@ -42,7 +42,7 @@ public class Feed extends Subsystem {
                 feeder.setElevatorCurrent(0);
             }
 
-        } else {
+        } /*else if (c.getSafety()) {
             if (!feeder.ballDetected() && timer <= 50) {
                 timer++;
                 feeder.setElevatorCurrent(0.7);
@@ -53,6 +53,10 @@ public class Feed extends Subsystem {
                 hopper.setRightCurrent(0.7);
             }
             feeder.setKickerCurrent(0);
+        } */else {
+            feeder.setElevatorCurrent(0);
+            hopper.setLeftCurrent(0);
+            hopper.setRightCurrent(0);
         }
 
     }    

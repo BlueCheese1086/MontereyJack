@@ -13,7 +13,7 @@ public class Controls {
     }
 
     public double getDriveForward() {
-        return leftStick.getY();
+        return -leftStick.getY();
     }
 
     public double getDriveTurn() {
@@ -25,7 +25,7 @@ public class Controls {
     }
 
     public boolean getLaunch() {
-        return controller.getRawButton(0);
+        return controller.getRawButton(2);
     }
 
     public double getLeftClimber() {
@@ -37,15 +37,15 @@ public class Controls {
     }
 
     public boolean getToggleIntake() {
-        return controller.getRawButtonPressed(0);
+        return controller.getRawButtonPressed(3);
     }
 
     public boolean getIntake() {
-        return controller.getRawButton(0);
+        return controller.getRawButton(4);
     }
 
     public boolean getOuttake() {
-        return controller.getRawButton(0);
+        return controller.getRawButton(5);
     }
 
 }

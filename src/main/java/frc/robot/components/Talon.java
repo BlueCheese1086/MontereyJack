@@ -11,6 +11,11 @@ public class Talon extends MotorController {
     TalonFX fxController;
     TalonType type;
 
+    /**
+     * 
+     * @param id
+     * @param type
+     */
     public Talon(int id, TalonType type) {
         this.type = type;
         switch(type) {
@@ -35,6 +40,10 @@ public class Talon extends MotorController {
         }
     }
 
+    /**
+     * Sets this controller to follow the controller of the specified id
+     * @param id
+     */
     public void setFollow(int id) {
         switch(type) {
             case SRX:
@@ -141,6 +150,10 @@ public class Talon extends MotorController {
         }
     }
 
+    /**
+     * Returns internal TalonSRX controller
+     * @return srxController
+     */
     public TalonSRX getInternalSRXController() {
         return srxController;
     }

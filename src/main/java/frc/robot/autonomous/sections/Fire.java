@@ -75,8 +75,8 @@ public class Fire extends AutoSection {
         camera.setCameraMode(0);
         camera.setLights(3);
         turret.setTurretPosition(0, camera.getXAngle());
-        groundDistance = camera.getGroundDistance(FieldMap.POWERPORT_HEIGHT);
-        angle = Turret.findDesiredAngle(groundDistance, FieldMap.POWERPORT_HEIGHT, Constants.LAUNCHER_DEFAULT_VELOCITY);
+        groundDistance = camera.getGroundDistance(FieldMap.POWERPORT_TARGET_HEIGHT);
+        angle = Turret.findDesiredAngle(groundDistance, FieldMap.POWERPORT_CENTER_HEIGHT, Constants.LAUNCHER_DEFAULT_VELOCITY);
         clampAngle();
         turret.setLauncherSpeed(Turret.appliedVelocity(velocity));
         turret.setHoodPosition(angle);
@@ -103,7 +103,7 @@ public class Fire extends AutoSection {
     public void clampAngle() {
         angle = MathUtil.clamp(angle, Constants.HOOD_MIN_POSITION, Constants.HOOD_MAX_POSITION);
         if (angle == Constants.HOOD_MIN_POSITION || angle == Constants.HOOD_MAX_POSITION) {
-            velocity = Turret.findDesiredVelocity(groundDistance, FieldMap.POWERPORT_HEIGHT, angle);
+            velocity = Turret.findDesiredVelocity(groundDistance, FieldMap.POWERPORT_CENTER_HEIGHT, angle);
         }
     }
     

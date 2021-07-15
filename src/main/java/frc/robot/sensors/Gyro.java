@@ -11,10 +11,18 @@ public class Gyro {
         gyro = new AHRS(SPI.Port.kMXP);
     }
 
+    /**
+     * Returns yaw value
+     * @return yaw
+     */
     public double getYaw() {
         return gyro.getAngle();
     }
 
+    /**
+     * Sets current yaw to given value
+     * @param yaw
+     */
     public void setYaw(double yaw) {
         gyro.reset();
         gyro.setAngleAdjustment(yaw);

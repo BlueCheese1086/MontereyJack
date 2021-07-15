@@ -20,18 +20,34 @@ public class Feeder {
         beambreak = new DigitalInput(RobotMap.BEAM_BREAK);
     }
 
+    /**
+     * 
+     * @param current percent current to set to elevator motor
+     */
     public void setElevatorCurrent(double current) {
         elevator.setCurrent(current);
     }
 
+    /**
+     * Sets kicker speed (in m/s)
+     * @param speed 
+     */
     public void setKickerSpeed(double speed) {
         kicker.setSpeed(speed * Constants.FEEDER_VELOCITY_SCALE);
     }
 
+    /**
+     * 
+     * @param current percent current to set to the kicker motor
+     */
     public void setKickerCurrent(double current) {
         kicker.setCurrent(current);
     }
 
+    /**
+     * 
+     * @return true if a ball is in the feeder and false otherwise
+     */
     public boolean ballDetected() {
         return !beambreak.get();
     }

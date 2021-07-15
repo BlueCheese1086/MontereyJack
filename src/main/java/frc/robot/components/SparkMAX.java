@@ -11,13 +11,25 @@ public class SparkMAX extends MotorController {
     CANPIDController pid;
     double targetPosition;
     double targetSpeed;
+    int id;
 
+    /**
+     * 
+     * @param id
+     * @param type
+     */
     public SparkMAX(int id, MotorType type) {
         controller = new CANSparkMax(id, type);
+        this.id = id;
     }
 
+    /**
+     * 
+     * @param id
+     */
     public SparkMAX(int id) {
         controller = new CANSparkMax(id, MotorType.kBrushless);
+        this.id = id;
     }
 
     @Override
@@ -61,10 +73,18 @@ public class SparkMAX extends MotorController {
         pid.setD(kd);
     }
 
+    /**
+     * Returns internal CANSparkMax controller 
+     * @return controller
+     */
     public CANSparkMax getInternalController() {
         return controller;
     }
 
+    /**
+     * Sets this controller to follow controller
+     * @param controller
+     */
     public void follow(SparkMAX controller) {
         this.controller.follow(controller.getInternalController());
     }

@@ -7,6 +7,7 @@ package frc.robot;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.sensors.*;
 import frc.robot.subsystems.*;
@@ -25,6 +26,7 @@ public class Robot extends TimedRobot {
   public static Hopper hopper;
   public static Intake intake;
   public static Turret turret;
+  Compressor compressor;
   ArrayList<Subsystem> subsystems;
   AutoManager autonomousManager;
   AutoMode autoMode;
@@ -40,6 +42,8 @@ public class Robot extends TimedRobot {
     hopper = new Hopper();
     intake = new Intake();
     turret = new Turret();
+    compressor = new Compressor(0);
+    compressor.setClosedLoopControl(true);
     subsystems = new ArrayList<Subsystem>();
     autonomousManager = new AutoManager();
     subsystems.addAll(Arrays.asList(new AimAndFire(), new Feed(), new Peripheral(), new Drive()));

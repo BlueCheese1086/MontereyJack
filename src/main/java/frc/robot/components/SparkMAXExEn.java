@@ -9,10 +9,19 @@ public class SparkMAXExEn extends SparkMAX {
     PIDController pid;
     double measurement;
 
+    /**
+     * 
+     * @param id
+     */
     public SparkMAXExEn(int id) {
         super(id);
     }
 
+    /**
+     * 
+     * @param id
+     * @param type
+     */
     public SparkMAXExEn(int id, MotorType type) {
         super(id, type);
     }
@@ -50,6 +59,10 @@ public class SparkMAXExEn extends SparkMAX {
         }
     }
 
+    /**
+     * Sets measurment to the given mesurement (generally encoder's position)
+     * @param measurement
+     */
     public void updateMeasurement(double measurement) {
         this.measurement = measurement;
     }
