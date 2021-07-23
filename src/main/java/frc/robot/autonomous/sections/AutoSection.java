@@ -21,7 +21,7 @@ public abstract class AutoSection {
     public abstract void disabled();
 
     public boolean disableCondition() {
-        return System.currentTimeMillis() - this.startTime >= length;
+        return length != 0 ? System.currentTimeMillis() - this.startTime >= length : false;
     }
 
     public boolean hasStarted() {

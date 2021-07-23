@@ -29,11 +29,11 @@ public class Feeder {
     }
 
     /**
-     * Sets kicker speed (in m/s)
+     * Sets kicker speed (in RPM)
      * @param speed 
      */
     public void setKickerSpeed(double speed) {
-        kicker.setSpeed(speed * Constants.FEEDER_VELOCITY_SCALE);
+        kicker.setSpeed(speed);
     }
 
     /**
@@ -43,6 +43,7 @@ public class Feeder {
     public void setKickerCurrent(double current) {
         kicker.setCurrent(current);
     }
+
 
     /**
      * 

@@ -47,6 +47,7 @@ public class Robot extends TimedRobot {
     subsystems = new ArrayList<Subsystem>();
     autonomousManager = new AutoManager();
     subsystems.addAll(Arrays.asList(new AimAndFire(), new Feed(), new Peripheral(), new Drive()));
+    autoMode = autonomousManager.getAuto();
   }
 
   @Override
@@ -55,7 +56,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    autoMode = autonomousManager.getAuto();
   }
 
   @Override

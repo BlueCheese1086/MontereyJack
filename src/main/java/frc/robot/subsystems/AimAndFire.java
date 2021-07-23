@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.Constants;
 import frc.robot.Controls;
@@ -16,6 +17,7 @@ public class AimAndFire extends Subsystem {
     double velocity;
     double groundDistance;
     double angle;
+    double lastGroundDistance;
 
     public AimAndFire() {
         turret = Robot.turret;
@@ -29,16 +31,26 @@ public class AimAndFire extends Subsystem {
     @Override
     public void update() {
 
+
+        if (c.getStartLaunch()) {
+            groundDistance = camera.getGroundDistance(FieldMap.POWERPORT_TARGET_HEIGHT);
+        }
+
         if (c.getLaunch()) {
 
             camera.setCameraMode(0);
             camera.setLights(3);
             turret.setTurretPosition(0, camera.getXAngle());
-            groundDistance = camera.getGroundDistance(FieldMap.POWERPORT_TARGET_HEIGHT);
+            //groundDistance = camera.getGroundDistance(FieldMap.POWERPORT_TARGET_HEIGHT);
             angle = Turret.findDesiredAngle(groundDistance, FieldMap.POWERPORT_CENTER_HEIGHT, Constants.LAUNCHER_DEFAULT_VELOCITY);
+            angle *= 0.75;
             clampAngle();
             turret.setLauncherSpeed(Turret.appliedVelocity(velocity));
             turret.setHoodPosition(angle);
+
+        } else if (c.revLauncher()) {
+
+            turret.setLauncherSpeed(Turret.appliedVelocity(velocity));
 
         } else {
 
@@ -46,6 +58,9 @@ public class AimAndFire extends Subsystem {
             camera.setLights(1);
             turret.setLauncherCurrent(0);
             turret.setHoodCurrent(0);
+            turret.setTurretPosition(0, turret.getTurretPosition());
+
+            velocity = Constants.LAUNCHER_DEFAULT_VELOCITY;
 
         }
         
@@ -53,8 +68,11 @@ public class AimAndFire extends Subsystem {
 
     public void clampAngle() {
         angle = MathUtil.clamp(angle, Constants.HOOD_MIN_POSITION, Constants.HOOD_MAX_POSITION);
+        if (Double.isNaN(angle)) {
+            angle = Constants.HOOD_MIN_POSITION;
+        }
         if (angle == Constants.HOOD_MIN_POSITION || angle == Constants.HOOD_MAX_POSITION) {
-            velocity = Turret.findDesiredVelocity(groundDistance, FieldMap.POWERPORT_CENTER_HEIGHT, angle);
+            velocity = Math.min(10.5, Turret.findDesiredVelocity(groundDistance, FieldMap.POWERPORT_CENTER_HEIGHT, angle));
         }
     }
     

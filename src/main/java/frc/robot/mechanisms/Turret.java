@@ -1,5 +1,6 @@
 package frc.robot.mechanisms;
 
+import edu.wpi.first.wpilibj.util.Units;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 import frc.robot.components.RIOEncoder;
@@ -26,6 +27,9 @@ public class Turret {
         hood.initPID(0, Constants.HOOD_KP, Constants.HOOD_KI, Constants.HOOD_KD);
         launcherMain.initPID(Constants.LAUNCHER_FF, Constants.LAUNCHER_KP, Constants.LAUNCHER_KI, Constants.LAUNCHER_KD);
         turret.initPID(0, Constants.TURRET_KP, Constants.TURRET_KI, Constants.TURRET_KD);
+        launcherFollow.setInverted(true);
+        hood.setInverted(true);
+        turret.setInverted(true);
     }
 
     /**
@@ -36,6 +40,7 @@ public class Turret {
         desiredSpeed = speed * Constants.LAUNCHER_VELOCITY_SCALE;
         launcherMain.setSpeed(desiredSpeed);
         launcherFollow.setFollow(RobotMap.LAUNCHER_MAIN_MOTOR);
+        System.out.println(launcherMain.getInternalFXController().getClosedLoopError());
     }
 
     /**
@@ -71,9 +76,9 @@ public class Turret {
     public void setTurretPosition(double position, double measurement) {
         turret.updateMeasurement(measurement);
         double currentPos = turretEncoder.get();
-        if ((currentPos >= Constants.TURRET_MIN_POSITION || measurement - position >= 0) && (currentPos <= Constants.TURRET_MAX_POSITION ||  measurement - position <= 0)) {
-            turret.setPosition(position);
-        }
+        //if ((currentPos >= Constants.TURRET_MIN_POSITION || measurement - position >= 0) && (currentPos <= Constants.TURRET_MAX_POSITION ||  measurement - position <= 0)) {
+        turret.setPosition(position);
+       // }
     }
 
     /**
@@ -97,7 +102,7 @@ public class Turret {
      * @param position
      */
     public void setHoodPosition(double position) {
-        if (position <= Constants.HOOD_MAX_POSITION) hood.setPosition(position * Constants.HOOD_POSITION_SCALE);
+        hood.setPosition((Constants.HOOD_MAX_POSITION - position) * Constants.HOOD_POSITION_SCALE);
     }
 
     /**

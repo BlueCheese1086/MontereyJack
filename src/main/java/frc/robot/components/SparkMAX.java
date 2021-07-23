@@ -5,6 +5,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import frc.robot.Constants;
+
 public class SparkMAX extends MotorController {
 
     CANSparkMax controller;
@@ -30,6 +32,7 @@ public class SparkMAX extends MotorController {
     public SparkMAX(int id) {
         controller = new CANSparkMax(id, MotorType.kBrushless);
         this.id = id;
+        controller.getEncoder().setPosition(0);
     }
 
     @Override
@@ -40,7 +43,7 @@ public class SparkMAX extends MotorController {
     @Override
     public void setSpeed(double speed) {
         targetSpeed = speed;
-        pid.setReference(speed, ControlType.kVelocity);
+        pid.setReference(speed * Constants.DRIVETRAIN_VELOCITY_SCALE, ControlType.kVelocity);
     }
 
     @Override

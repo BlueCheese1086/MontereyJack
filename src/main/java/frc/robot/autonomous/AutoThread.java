@@ -24,8 +24,10 @@ public class AutoThread {
         
         if (section < sections.size()) {
 
-            if (!sections.get(section).hasStarted()) { 
+            if (!sections.get(section).hasStarted()) {
+
                 sections.get(section).init();
+            
             } else {
                 sections.get(section).update();
             }

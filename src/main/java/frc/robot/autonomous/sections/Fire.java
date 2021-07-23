@@ -28,7 +28,7 @@ public class Fire extends AutoSection {
         camera = Robot.camera;
         angle = 0;
         groundDistance = 0;
-        velocity = 0;
+        velocity = Constants.LAUNCHER_DEFAULT_VELOCITY;
         counter = 0;
         this.count = count;
         tester = false;
@@ -42,50 +42,59 @@ public class Fire extends AutoSection {
         camera = Robot.camera;
         angle = 0;
         groundDistance = 0;
-        velocity = 0;
+        velocity = Constants.LAUNCHER_DEFAULT_VELOCITY;
         counter = 0;
         this.count = count;
         tester = false;
     }
 
     @Override
+    public void init() {
+        super.init();
+        groundDistance = camera.getGroundDistance(FieldMap.POWERPORT_TARGET_HEIGHT);
+    }
+
+    @Override
     public void update() {
-        hopper.setLeftCurrent(0.4);
-        hopper.setRightCurrent(0.7);
+
         feeder.setKickerSpeed(Constants.FEEDER_DEFAULT_VELOCITY);
-            
-        if (turret.getLauncherSpeed() > turret.getDesiredLauncherSpeed() * 0.9) {
 
-            feeder.setElevatorCurrent(1);
-            tester = true;
-
-        } else if (!feeder.ballDetected()) {
-            feeder.setElevatorCurrent(0.7);
-            if (tester) {
-                counter++;
-                tester = false;
-            }
-        } else {
-            feeder.setElevatorCurrent(0);
-            if (tester) {
-                counter++;
-                tester = false;
-            }
-        }
         camera.setCameraMode(0);
         camera.setLights(3);
         turret.setTurretPosition(0, camera.getXAngle());
-        groundDistance = camera.getGroundDistance(FieldMap.POWERPORT_TARGET_HEIGHT);
         angle = Turret.findDesiredAngle(groundDistance, FieldMap.POWERPORT_CENTER_HEIGHT, Constants.LAUNCHER_DEFAULT_VELOCITY);
+        angle *= 0.75;
         clampAngle();
         turret.setLauncherSpeed(Turret.appliedVelocity(velocity));
         turret.setHoodPosition(angle);
+
+        if (feeder.ballDetected()) {
+            tester = true;
+        }
+        if (tester && !feeder.ballDetected()) {
+            tester = false;
+            counter++;
+        }
+            
+        if (turret.getLauncherSpeed() > turret.getDesiredLauncherSpeed() / Constants.LAUNCHER_VELOCITY_SCALE * 0.9) {
+
+            feeder.setElevatorCurrent(1);
+
+        } else if (!feeder.ballDetected()) {
+            feeder.setElevatorCurrent(0.7);
+            hopper.setLeftCurrent(0.7);
+            hopper.setRightCurrent(0.7);
+        } else {
+            feeder.setElevatorCurrent(0);
+            hopper.setLeftCurrent(0);
+            hopper.setRightCurrent(0);
+        }
     }
 
     @Override
     public void disabled() {
-        camera.setCameraMode(1);
-        camera.setLights(1);
+        //camera.setCameraMode(1);
+        //camera.setLights(1);
         turret.setLauncherCurrent(0);
         turret.setTurretCurrent(0);
         turret.setHoodCurrent(0);

@@ -13,9 +13,15 @@ public class AutoMode {
 
         this.name = name;
         threads = new ArrayList<AutoThread>();
+        for (int i = 0; i < 5; i++) threads.add(new AutoThread());
 
     }
 
+    /**
+     * 
+     * @param s
+     * @param thread [0,5]
+     */
     public void addSection(AutoSection s, int thread) {
         try {
             threads.get(thread).addSection(s);

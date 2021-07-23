@@ -13,11 +13,11 @@ public class Controls {
     }
 
     public double getDriveForward() {
-        return -leftStick.getY();
+        return -leftStick.getY() * Math.abs(leftStick.getY());
     }
 
     public double getDriveTurn() {
-        return rightStick.getX();
+        return rightStick.getX() * Math.abs(rightStick.getX());
     }
 
     public boolean getSafety() {
@@ -27,13 +27,17 @@ public class Controls {
     public boolean getLaunch() {
         return controller.getRawButton(2);
     }
+    
+    public boolean getStartLaunch() {
+        return controller.getRawButtonPressed(2);
+    }
 
     public double getLeftClimber() {
-        return controller.getRawAxis(0);
+        return controller.getRawAxis(1);
     }
 
     public double getRightClimber() {
-        return controller.getRawAxis(0);
+        return controller.getRawAxis(3);
     }
 
     public boolean getToggleIntake() {
@@ -46,6 +50,10 @@ public class Controls {
 
     public boolean getOuttake() {
         return controller.getRawButton(5);
+    }
+
+    public boolean revLauncher() {
+        return controller.getRawButton(6);
     }
 
 }

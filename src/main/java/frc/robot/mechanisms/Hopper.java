@@ -11,6 +11,8 @@ public class Hopper {
     public Hopper() {
         left = new Talon(RobotMap.LEFT_HOPPER_MOTOR, TalonType.SRX);
         right = new Talon(RobotMap.RIGHT_HOPPER_MOTOR, TalonType.SRX);
+        left.setInverted(true);
+        right.setInverted(true);
     }
 
     /**

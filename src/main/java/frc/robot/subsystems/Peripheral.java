@@ -30,14 +30,14 @@ public class Peripheral extends Subsystem {
         } else {
             intake.setCurrent(0);
         }
-        if (c.getLeftClimber() > 0.2) {
+        if (Math.abs(c.getLeftClimber()) > 0.2) {
             climber.setLeftLock(true);
             climber.setLeftCurrent(c.getLeftClimber());
         } else {
             climber.setLeftLock(false);
             climber.setLeftCurrent(0);
         }
-        if (c.getRightClimber() > 0.2) {
+        if (Math.abs(c.getRightClimber()) > 0.2) {
             climber.setRightLock(true);
             climber.setRightCurrent(c.getRightClimber());
         } else {

@@ -14,6 +14,7 @@ public class Feed extends Subsystem {
     Feeder feeder;
     Turret turret;
     double timer;
+    boolean go;
 
     public Feed() {
         c = Robot.controls;
@@ -21,6 +22,7 @@ public class Feed extends Subsystem {
         feeder = Robot.feeder;
         turret = Robot.turret;
         timer = 0;
+        go = false;
     }
 
     @Override
@@ -28,11 +30,12 @@ public class Feed extends Subsystem {
         
         if (c.getLaunch()) {
 
-            hopper.setLeftCurrent(0.4);
+            hopper.setLeftCurrent(0.7);
             hopper.setRightCurrent(0.7);
-            feeder.setKickerSpeed(Constants.FEEDER_DEFAULT_VELOCITY);
             
-            if (turret.getLauncherSpeed() > turret.getDesiredLauncherSpeed() * 0.9) {
+            feeder.setKickerSpeed(Constants.FEEDER_DEFAULT_VELOCITY);
+
+            if (turret.getLauncherSpeed() > turret.getDesiredLauncherSpeed() / Constants.LAUNCHER_VELOCITY_SCALE * 0.9) {
 
                 feeder.setElevatorCurrent(1);
 
@@ -42,21 +45,25 @@ public class Feed extends Subsystem {
                 feeder.setElevatorCurrent(0);
             }
 
-        } /*else if (c.getSafety()) {
+        } else if (c.getSafety()) {
+
             if (!feeder.ballDetected() && timer <= 50) {
                 timer++;
                 feeder.setElevatorCurrent(0.7);
             } else {
                 timer = 0;
                 feeder.setElevatorCurrent(0);
-                hopper.setLeftCurrent(0.4);
+                hopper.setLeftCurrent(0.7);
                 hopper.setRightCurrent(0.7);
             }
             feeder.setKickerCurrent(0);
-        } */else {
+            
+        } else {
             feeder.setElevatorCurrent(0);
             hopper.setLeftCurrent(0);
             hopper.setRightCurrent(0);
+            feeder.setKickerCurrent(0);
+            go = false;
         }
 
     }    

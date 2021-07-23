@@ -33,16 +33,6 @@ public class Odometry extends Subsystem {
     public void update() {
 
         drivetrain.updateOdometry(drivetrain.getLeftPos(), drivetrain.getRightPos(), new Rotation2d(-gyro.getYaw()));
-
-        if (!c.getLaunch()) {
-            Pose2d temp = FieldMap.OPPOSING_ALLIANCE_POWERPORT.relativeTo(drivetrain.getCoordinates());
-            double angle = Math.atan2(temp.getY(), temp.getX()) + gyro.getYaw();
-            turret.setTurretPosition(angle, turret.getTurretPosition());
-        } else if (turret.atTargetPosition()) {
-            double groundDistance = camera.getGroundDistance(FieldMap.POWERPORT_TARGET_HEIGHT);
-            double angle = Units.degreesToRadians(gyro.getYaw() + turret.getTurretPosition());
-            drivetrain.setOdometry(new Pose2d(new Translation2d(groundDistance * Math.cos(angle), groundDistance * Math.sin(angle)), new Rotation2d()), new Rotation2d(-gyro.getYaw()));
-        }
         
     }
     
