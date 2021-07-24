@@ -10,8 +10,8 @@ public class Constants {
     public static double FEEDER_KD = 0;
     public static double FEEDER_DEFAULT_VELOCITY = 9000;
 
-    public static double TURRET_SCALE = 360;
-    public static double TURRET_ZERO = 0;
+    public static double TURRET_SCALE = 360.0 / (217.0 / 18);
+    public static double TURRET_ZERO = 12.6;
 
     public static double LAUNCHER_DEFAULT_VELOCITY = 9.2; // m/s
     public static double LAUNCHER_VELOCITY_SCALE = 1 / (2 * RobotDimensions.LAUNCHER_WHEEL_RADIUS * Math.PI) * 2048 / 10; // m / s -> enc units / 10th of a second
@@ -28,8 +28,8 @@ public class Constants {
     public static double TURRET_KI = 0;
     public static double TURRET_KD = 0;
 
-    public static double TURRET_MAX_POSITION = 0;
-    public static double TURRET_MIN_POSITION = 0;
+    public static double TURRET_MAX_POSITION = 45;
+    public static double TURRET_MIN_POSITION = -45;
     public static double TURRET_POSITION_TOLERANCE = 1;
 
     public static double HOOD_KP = 1 / 4.0;
@@ -43,13 +43,13 @@ public class Constants {
     public static double DRIVETRAIN_POSITION_SCALE = (8.98) / (2 * RobotDimensions.DRIVETRAIN_WHEEL_RADIUS * Math.PI); // m -> rotation
     public static double DRIVETRAIN_VELOCITY_SCALE = (8.98) * 60 / (2 * RobotDimensions.DRIVETRAIN_WHEEL_RADIUS * Math.PI); // m / s -> RPM
 
-    public static double MP_DRIVE_FF = 1.0 / (16 * DRIVETRAIN_VELOCITY_SCALE);
-    public static double MP_DRIVE_KP = 0.192;
+    public static double MP_DRIVE_FF = 1.0 / 5676;
+    public static double MP_DRIVE_KP = 1.0 / 1000;
     public static double MP_DRIVE_KI = 0;
     public static double MP_DRIVE_KD = 0;
 
-    public static double MP_MAX_VELOCITY = 10; // m/s
-    public static double MP_MAX_ACCELERATION = 5; // m/s^2
+    public static double MP_MAX_VELOCITY = 3; // m/s
+    public static double MP_MAX_ACCELERATION = 1.5; // m/s^2
     public static double MP_KS = 0.246;
     public static double MP_KV = 2.49;
     public static double MP_KA = 0.553;

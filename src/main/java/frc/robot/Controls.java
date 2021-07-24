@@ -25,11 +25,11 @@ public class Controls {
     }
 
     public boolean getLaunch() {
-        return controller.getRawButton(2);
+        return rightStick.getRawButton(2);
     }
     
     public boolean getStartLaunch() {
-        return controller.getRawButtonPressed(2);
+        return rightStick.getRawButtonPressed(2);
     }
 
     public double getLeftClimber() {
@@ -41,19 +41,26 @@ public class Controls {
     }
 
     public boolean getToggleIntake() {
-        return controller.getRawButtonPressed(3);
+        return controller.getRawButtonPressed(1);
     }
 
     public boolean getIntake() {
-        return controller.getRawButton(4);
+        return controller.getPOV() == 180;
     }
 
     public boolean getOuttake() {
-        return controller.getRawButton(5);
+        return controller.getPOV() == 0;
     }
 
     public boolean revLauncher() {
-        return controller.getRawButton(6);
+        return controller.getRawButton(7);
     }
 
+    public boolean getHopperOut() {
+        return controller.getRawButton(8);
+    }
+
+    public boolean getHopperIn() {
+        return controller.getRawButton(6);
+    }
 }

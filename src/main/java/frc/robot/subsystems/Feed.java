@@ -58,6 +58,18 @@ public class Feed extends Subsystem {
             }
             feeder.setKickerCurrent(0);
             
+        } else if (c.getHopperOut()) {
+
+            feeder.setElevatorCurrent(-0.7);
+            hopper.setLeftCurrent(-0.7);
+            hopper.setRightCurrent(-0.7);
+
+        } else if (c.getHopperIn()) {
+
+            feeder.setElevatorCurrent(0.7);
+            hopper.setLeftCurrent(0.7);
+            hopper.setRightCurrent(0.7);
+            
         } else {
             feeder.setElevatorCurrent(0);
             hopper.setLeftCurrent(0);

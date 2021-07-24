@@ -37,20 +37,20 @@ public class AutoManager {
         auto2 = new AutoMode("trench");
         auto2.addSection(new Fire(3), 0);
         auto2.addSection(new FollowTrajectory(TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d()), Arrays.asList(
-            new Translation2d(2.5, 2)
-        ), new Pose2d(2.5, 3.5, new Rotation2d()), config)), 0);
+            new Translation2d(1, 2)
+        ), new Pose2d(1, 3.5, new Rotation2d()), config)), 0);
         auto2.addSection(new Wait(4), 1);
         auto2.addSection(new RunIntake(5), 1);
 
         auto3 = new AutoMode("test");
-        auto2.addSection(new FollowTrajectory(TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d()), Arrays.asList(
+        auto3.addSection(new FollowTrajectory(TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d()), Arrays.asList(
 
-        ), new Pose2d(0, 2, new Rotation2d()), config)), 0);
+        ), new Pose2d(0, 1, new Rotation2d()), config)), 0);
  
 
         autoChooser.setDefaultOption(auto1.getName(), auto1);
-        autoChooser.addOption(auto2.getName(), auto2);
-        autoChooser.addOption(auto3.getName(), auto3);
+        //autoChooser.addOption(auto2.getName(), auto2);
+        //autoChooser.addOption(auto3.getName(), auto3);
 
         SmartDashboard.putData("Auto Mode Selector", autoChooser);
 

@@ -18,6 +18,7 @@ public class AimAndFire extends Subsystem {
     double groundDistance;
     double angle;
     double lastGroundDistance;
+    boolean run;
 
     public AimAndFire() {
         turret = Robot.turret;
@@ -26,39 +27,46 @@ public class AimAndFire extends Subsystem {
         velocity = Constants.LAUNCHER_DEFAULT_VELOCITY;
         groundDistance = 0;
         angle = Constants.HOOD_MIN_POSITION;
+        run = false;
     }
 
     @Override
     public void update() {
 
+        System.out.println(turret.getTurretPosition());
 
         if (c.getStartLaunch()) {
-            groundDistance = camera.getGroundDistance(FieldMap.POWERPORT_TARGET_HEIGHT);
+            camera.setCameraMode(0);
+            camera.setLights(3);
         }
 
         if (c.getLaunch()) {
 
-            camera.setCameraMode(0);
-            camera.setLights(3);
-            turret.setTurretPosition(0, camera.getXAngle());
-            //groundDistance = camera.getGroundDistance(FieldMap.POWERPORT_TARGET_HEIGHT);
-            angle = Turret.findDesiredAngle(groundDistance, FieldMap.POWERPORT_CENTER_HEIGHT, Constants.LAUNCHER_DEFAULT_VELOCITY);
-            angle *= 0.75;
-            clampAngle();
-            turret.setLauncherSpeed(Turret.appliedVelocity(velocity));
-            turret.setHoodPosition(angle);
+            if (camera.getYAngle() != 0 && !run) {
+                groundDistance = camera.getGroundDistance(FieldMap.POWERPORT_TARGET_HEIGHT);
+                run = true;
+            }
+            if (run) {
+                turret.setTurretPosition(0, camera.getXAngle());
+                angle = Turret.findDesiredAngle(groundDistance, FieldMap.POWERPORT_CENTER_HEIGHT, Constants.LAUNCHER_DEFAULT_VELOCITY);
+                angle *= 0.8;
+                clampAngle();
+                turret.setLauncherSpeed(Turret.appliedVelocity(velocity));
+                turret.setHoodPosition(angle);
+            }
 
         } else if (c.revLauncher()) {
 
             turret.setLauncherSpeed(Turret.appliedVelocity(velocity));
 
         } else {
-
+            run = false;
             camera.setCameraMode(1);
             camera.setLights(1);
             turret.setLauncherCurrent(0);
             turret.setHoodCurrent(0);
-            turret.setTurretPosition(0, turret.getTurretPosition());
+            turret.setTurretCurrent(0);
+            turret.setTurretPosition(0, -turret.getTurretPosition());
 
             velocity = Constants.LAUNCHER_DEFAULT_VELOCITY;
 

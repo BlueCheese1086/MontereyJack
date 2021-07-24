@@ -34,16 +34,19 @@ public class FollowTrajectory extends AutoSection {
         super.init();
         this.savedPose = drivetrain.getCoordinates();
         drivetrain.setOdometry(new Pose2d(0, 0, new Rotation2d()), Rotation2d.fromDegrees(gyro.getYaw()));
+        drivetrain.resetPositions();
     }
 
     @Override
     public void update() {
         double time = (System.currentTimeMillis() - startTime) / 1000.0;
         Trajectory.State goal = trajectory.sample(time);
+        drivetrain.updateOdometry(drivetrain.getLeftPos(), drivetrain.getRightPos(), new Rotation2d(gyro.getYaw()));
         Pose2d pose = drivetrain.getCoordinates().transformBy(new Transform2d(new Translation2d(), Rotation2d.fromDegrees(gyro.getYaw())));
         ChassisSpeeds speeds = controller.calculate(pose, goal);
         DifferentialDriveWheelSpeeds wheelSpeeds = drivetrain.getKinematics().toWheelSpeeds(speeds);
-        drivetrain.setSpeeds(wheelSpeeds);
+        System.out.println(wheelSpeeds.leftMetersPerSecond);
+        //drivetrain.setSpeeds(wheelSpeeds);
     }
 
     @Override

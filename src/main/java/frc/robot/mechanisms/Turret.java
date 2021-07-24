@@ -76,9 +76,7 @@ public class Turret {
     public void setTurretPosition(double position, double measurement) {
         turret.updateMeasurement(measurement);
         double currentPos = turretEncoder.get();
-        //if ((currentPos >= Constants.TURRET_MIN_POSITION || measurement - position >= 0) && (currentPos <= Constants.TURRET_MAX_POSITION ||  measurement - position <= 0)) {
-        turret.setPosition(position);
-       // }
+        if ((currentPos >= Constants.TURRET_MIN_POSITION || measurement - position >= 0) && (currentPos <= Constants.TURRET_MAX_POSITION ||  measurement - position <= 0)) turret.setPosition(position);
     }
 
     /**

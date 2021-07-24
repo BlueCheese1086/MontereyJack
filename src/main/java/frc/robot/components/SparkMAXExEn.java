@@ -3,6 +3,7 @@ package frc.robot.components;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpiutil.math.MathUtil;
 
 public class SparkMAXExEn extends SparkMAX {
 
@@ -33,7 +34,7 @@ public class SparkMAXExEn extends SparkMAX {
 
     @Override
     public void setPosition(double position) {
-        this.setCurrent(pid.calculate(this.measurement, position));
+        this.setCurrent(MathUtil.clamp(pid.calculate(this.measurement, position), -0.4, 0.4));
     }
 
     @Override

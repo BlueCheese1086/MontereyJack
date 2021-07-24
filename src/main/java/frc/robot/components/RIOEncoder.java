@@ -33,7 +33,7 @@ public class RIOEncoder {
      * @return rotations away from zero times outputScale (generally degrees)
      */
     public double get() {
-        return (encoder.get() - zero) * outputScale;
+        return encoder.get() * outputScale - zero;
     }
 
     /**

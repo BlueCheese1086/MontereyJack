@@ -28,6 +28,9 @@ public class Drivetrain {
         rightFollow.follow(rightMain);
         leftMain.setInverted(true);
 
+        leftMain.initPID(Constants.MP_DRIVE_FF, Constants.MP_DRIVE_KP, Constants.MP_DRIVE_KI, Constants.MP_DRIVE_KD);
+        rightMain.initPID(Constants.MP_DRIVE_FF, Constants.MP_DRIVE_KP, Constants.MP_DRIVE_KI, Constants.MP_DRIVE_KD);
+
         kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(RobotDimensions.ROBOT_WIDTH));
     }
 

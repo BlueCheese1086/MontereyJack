@@ -52,15 +52,14 @@ public class Fire extends AutoSection {
     public void init() {
         super.init();
         groundDistance = camera.getGroundDistance(FieldMap.POWERPORT_TARGET_HEIGHT);
+        camera.setCameraMode(0);
+        camera.setLights(3);
     }
 
     @Override
     public void update() {
 
         feeder.setKickerSpeed(Constants.FEEDER_DEFAULT_VELOCITY);
-
-        camera.setCameraMode(0);
-        camera.setLights(3);
         turret.setTurretPosition(0, camera.getXAngle());
         angle = Turret.findDesiredAngle(groundDistance, FieldMap.POWERPORT_CENTER_HEIGHT, Constants.LAUNCHER_DEFAULT_VELOCITY);
         angle *= 0.75;
